@@ -1,11 +1,9 @@
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
-// ⬇️ REMOVED MantineEmotionProvider from here
-import { ColorSchemeScript, MantineProvider } from '@mantine/core'; 
-import { Notifications } from '@mantine/notifications';
-import { theme } from '../lib/theme';
+import { ColorSchemeScript } from '@mantine/core';
+import MantineWrapper from '../components/MantineWrapper';
 import React from 'react';
-import QueryProvider from '../components/QueryProvider'; 
+import QueryProvider from '../components/QueryProvider';
 
 export default function RootLayout({
   children,
@@ -13,18 +11,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    // ADD THIS PROP: suppressHydrationWarning
+    <html lang="en" suppressHydrationWarning>
       <head>
         <ColorSchemeScript />
       </head>
       <body>
-        <QueryProvider> 
-          {/* ⬅️ REMOVED THE WRAPPING TAGS */}
-          <MantineProvider theme={theme}>
-            <Notifications position="top-right" zIndex={1000} />
-            {children} 
-          </MantineProvider>
-          {/* ⬆️ REMOVED THE WRAPPING TAGS */}
+        <QueryProvider>
+          <MantineWrapper>
+            {children}
+          </MantineWrapper>
         </QueryProvider>
       </body>
     </html>
